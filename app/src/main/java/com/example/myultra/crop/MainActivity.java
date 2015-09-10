@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Uri picUri;
     //keep track of cropping intent
     final int PIC_CROP =3;
-;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,13 +37,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void open(View view) {
-
+// IT WILL PROMPT THE USER TO CHOOSE THE CAMERA OR GALLERY 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Select the option for image ");
         alertDialogBuilder.setPositiveButton("CAMERA", new DialogInterface.OnClickListener() {
+            
+// IF USER CHOOSES CAMERA OPTION            
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                
                 //use standard intent to capture an image
                 Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 //we will handle the returned data in onActivityResult
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
+// IF USER CHOOSES GALLERY OPTION
         alertDialogBuilder.setNegativeButton("GALARY", new DialogInterface.OnClickListener() {
 
             @Override
@@ -89,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else if (requestCode==GALLERY_USE)
             {
+                // CODE TO GET THE PHOTO FROM GALLERY FOR CROPPING
                 picUri = data.getData();
                 String[] filePathColumn = {MediaStore.Images.Media.DATA};
                 Cursor cursor = getContentResolver().query(picUri, filePathColumn, null, null, null);
